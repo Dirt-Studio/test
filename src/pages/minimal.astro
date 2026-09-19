@@ -1,51 +1,73 @@
 ---
-const projects = [
+import { messages } from "../i18n/messages";
+
+const t = messages.zh;
+
+const destinations = [
   {
-    name: "MC 物品数量转换",
-    href: "https://tools.imc899856.dpdns.org/mc-stack",
-    blurb: "在堆、组、个之间换算，直接给出箱子占用与剩余格数。",
-    tag: "工具",
-    tint: "blue",
-    span: "wide"
+    nameKey: "destForum",
+    blurbKey: "destForumBlurb",
+    tagKey: "tagSoon",
+    href: "#forum",
+    image: "/images/room.jpg",
+    altKey: "altRoom",
+    span: "feature",
+    soon: true
   },
   {
-    name: "合成配方查询",
-    href: "https://tools.imc899856.dpdns.org/mc-recipes",
-    blurb: "按产物反查所需材料，支持多级展开到基础资源。",
-    tag: "工具",
-    tint: "green",
-    span: "wide"
+    nameKey: "destTools",
+    blurbKey: "destToolsBlurb",
+    tagKey: "tagLive",
+    href: "https://tools.imc899856.dpdns.org",
+    image: "/images/tools.jpg",
+    altKey: "altTools",
+    span: "wide",
+    soon: false
   },
   {
-    name: "聊天室",
+    nameKey: "destBlog",
+    blurbKey: "destBlogBlurb",
+    tagKey: "tagLive",
+    href: "https://blog.imc899856.dpdns.org",
+    image: "/images/notes.jpg",
+    altKey: "altNotes",
+    span: "half",
+    soon: false
+  },
+  {
+    nameKey: "destChat",
+    blurbKey: "destChatBlurb",
+    tagKey: "tagLive",
     href: "https://chat.imc899856.dpdns.org",
-    blurb: "自托管 WebSocket 房间，无账号，进来就能说话。",
-    tag: "服务",
-    tint: "yellow",
-    span: "half"
+    image: "/images/workshop.jpg",
+    altKey: "altWorkshop",
+    span: "half",
+    soon: false
   },
   {
-    name: "网页游戏",
+    nameKey: "destGame",
+    blurbKey: "destGameBlurb",
+    tagKey: "tagLive",
     href: "https://game.imc899856.dpdns.org",
-    blurb: "几款跑在浏览器里的小游戏，零安装。",
-    tag: "实验",
-    tint: "red",
-    span: "half"
+    image: "/images/desk.jpg",
+    altKey: "altDesk",
+    span: "wide",
+    soon: false
   }
-];
+] as const;
 
 const tools = [
-  { name: "堆叠换算", href: "https://tools.imc899856.dpdns.org/mc-stack", meta: "64 / 组" },
-  { name: "配方查询", href: "https://tools.imc899856.dpdns.org/mc-recipes", meta: "3 级展开" },
-  { name: "燃料对照", href: "https://tools.imc899856.dpdns.org/fuel", meta: "14 种" },
-  { name: "附魔成本", href: "https://tools.imc899856.dpdns.org/enchant", meta: "等级表" }
-];
+  { nameKey: "toolStack", metaKey: "toolStackMeta", href: "https://tools.imc899856.dpdns.org/mc-stack" },
+  { nameKey: "toolRecipes", metaKey: "toolRecipesMeta", href: "https://tools.imc899856.dpdns.org/mc-recipes" },
+  { nameKey: "toolFuel", metaKey: "toolFuelMeta", href: "https://tools.imc899856.dpdns.org/fuel" },
+  { nameKey: "toolEnchant", metaKey: "toolEnchantMeta", href: "https://tools.imc899856.dpdns.org/enchant" }
+] as const;
 
 const posts = [
-  { title: "把内网穿透换成 Caddy 之后", date: "2026-08-14", href: "https://blog.imc899856.dpdns.org/caddy-tunnel" },
-  { title: "自建聊天室为什么选了 Durable Objects", date: "2026-07-02", href: "https://blog.imc899856.dpdns.org/chat-durable-objects" },
-  { title: "MC 配方数据怎么从本地 jar 里抠出来", date: "2026-05-21", href: "https://blog.imc899856.dpdns.org/mc-recipe-datapack" }
-];
+  { titleKey: "post1", date: "2026-08-14", href: "https://blog.imc899856.dpdns.org/caddy-tunnel", image: "/images/rack.jpg" },
+  { titleKey: "post2", date: "2026-07-02", href: "https://blog.imc899856.dpdns.org/chat-durable-objects", image: "/images/board.jpg" },
+  { titleKey: "post3", date: "2026-05-21", href: "https://blog.imc899856.dpdns.org/mc-recipe-datapack", image: "/images/notes.jpg" }
+] as const;
 
 const year = new Date().getFullYear();
 ---
@@ -55,8 +77,8 @@ const year = new Date().getFullYear();
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>imc899856 · Minimal</title>
-    <meta name="description" content="自建工具、博客与联网小玩意的入口。" />
+    <title>{t.metaTitle}</title>
+    <meta name="description" content={t.metaDesc} />
     <meta name="color-scheme" content="light" />
     <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
@@ -74,59 +96,103 @@ const year = new Date().getFullYear();
           <span class="brand__word">imc899856</span>
         </a>
         <nav class="mast__nav" aria-label="Primary">
-          <a href="#work">项目</a>
-          <a href="#tools">工具</a>
-          <a href="#writing">写作</a>
-          <a href="#contact">联系</a>
-          <a class="mast__alt" href="/">高端版</a>
+          <a href="#hub" data-i18n="navHub">{t.navHub}</a>
+          <a href="#tools" data-i18n="navTools">{t.navTools}</a>
+          <a href="#blog" data-i18n="navBlog">{t.navBlog}</a>
+          <a href="#contact" data-i18n="navContact">{t.navContact}</a>
+          <div class="lang" role="group" aria-label="Language">
+            <button type="button" class="lang__btn" data-lang="zh" data-i18n="langZh" aria-pressed="true">{t.langZh}</button>
+            <button type="button" class="lang__btn" data-lang="en" data-i18n="langEn" aria-pressed="false">{t.langEn}</button>
+          </div>
+          <a class="mast__alt" href="/" data-i18n="navPremium">{t.navPremium}</a>
         </nav>
       </div>
     </header>
 
     <main>
       <section class="hero">
-        <div class="wrap hero__inner">
-          <p class="kicker reveal">自建站 / 工具与写作</p>
-          <h1 class="hero__title reveal" style="--index:1">
-            我把自己用得到的<br />东西都搬到了这台服务器上。
-          </h1>
-          <p class="hero__body reveal" style="--index:2">
-            一堆 Minecraft 小工具、一个没有账号的聊天室，还有记下来的技术笔记。全部自托管，没有广告，也没有注册墙。
-          </p>
-          <div class="hero__actions reveal" style="--index:3">
-            <a class="btn btn--solid" href="#work">看看做了什么</a>
-            <a class="btn btn--ghost" href="https://blog.imc899856.dpdns.org">读博客</a>
+        <div class="wrap hero__grid">
+          <div class="hero__copy">
+            <p class="kicker reveal" data-i18n="kicker">{t.kicker}</p>
+            <h1 class="hero__title reveal" style="--index:1">
+              <span data-i18n="heroTitle1">{t.heroTitle1}</span><br />
+              <span data-i18n="heroTitle2">{t.heroTitle2}</span>
+            </h1>
+            <p class="hero__body reveal" style="--index:2" data-i18n="heroBody">
+              {t.heroBody}
+            </p>
+            <div class="hero__actions reveal" style="--index:3">
+              <a class="btn btn--solid" href="#hub" data-i18n="ctaBrowse">{t.ctaBrowse}</a>
+              <a class="btn btn--ghost" href="https://tools.imc899856.dpdns.org" data-i18n="ctaTools">{t.ctaTools}</a>
+            </div>
           </div>
+          <figure class="hero__frame reveal" style="--index:1">
+            <img
+              class="hero__photo"
+              src="/images/rack.jpg"
+              alt={t.altRack}
+              data-i18n-alt="altRack"
+              width="900"
+              height="1200"
+            />
+            <figcaption class="hero__cap" data-i18n="heroCaption">{t.heroCaption}</figcaption>
+          </figure>
         </div>
       </section>
 
-      <section class="section" id="work">
+      <section class="section" id="hub">
         <div class="wrap">
           <div class="head reveal">
-            <h2 class="head__title">项目</h2>
-            <p class="head__body">四样东西，每样都是自己先用得上才做的。</p>
+            <h2 class="head__title" data-i18n="hubTitle">{t.hubTitle}</h2>
+            <p class="head__body" data-i18n="hubBody">{t.hubBody}</p>
           </div>
 
           <div class="bento">
-            {projects.map((p, i) => (
-              <a
-                class:list={["cell", `cell--${p.span}`, "reveal"]}
-                style={`--index:${i}`}
-                href={p.href}
-              >
-                <div class="cell__top">
-                  <span class:list={["tag", `tag--${p.tint}`]}>{p.tag}</span>
-                  <span class="cell__go" aria-hidden="true">
-                    <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6">
-                      <path d="M5 11 11 5M6.5 5H11v4.5" />
-                    </svg>
-                  </span>
+            {destinations.map((p, i) => (
+              p.soon ? (
+                <div
+                  class:list={["cell", "cell--soon", `cell--${p.span}`, "reveal"]}
+                  style={`--index:${i}`}
+                  id="forum"
+                >
+                  <div class="cell__media">
+                    <img src={p.image} alt={t[p.altKey]} data-i18n-alt={p.altKey} width="1200" height="800" />
+                  </div>
+                  <div class="cell__body">
+                    <div class="cell__top">
+                      <span class="tag" data-i18n={p.tagKey}>{t[p.tagKey]}</span>
+                    </div>
+                    <div class="cell__bottom">
+                      <h3 class="cell__name" data-i18n={p.nameKey}>{t[p.nameKey]}</h3>
+                      <p class="cell__blurb" data-i18n={p.blurbKey}>{t[p.blurbKey]}</p>
+                    </div>
+                  </div>
                 </div>
-                <div class="cell__bottom">
-                  <h3 class="cell__name">{p.name}</h3>
-                  <p class="cell__blurb">{p.blurb}</p>
-                </div>
-              </a>
+              ) : (
+                <a
+                  class:list={["cell", `cell--${p.span}`, "reveal"]}
+                  style={`--index:${i}`}
+                  href={p.href}
+                >
+                  <div class="cell__media">
+                    <img src={p.image} alt={t[p.altKey]} data-i18n-alt={p.altKey} width="1200" height="800" />
+                  </div>
+                  <div class="cell__body">
+                    <div class="cell__top">
+                      <span class="tag" data-i18n={p.tagKey}>{t[p.tagKey]}</span>
+                      <span class="cell__go" aria-hidden="true">
+                        <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6">
+                          <path d="M5 11 11 5M6.5 5H11v4.5" />
+                        </svg>
+                      </span>
+                    </div>
+                    <div class="cell__bottom">
+                      <h3 class="cell__name" data-i18n={p.nameKey}>{t[p.nameKey]}</h3>
+                      <p class="cell__blurb" data-i18n={p.blurbKey}>{t[p.blurbKey]}</p>
+                    </div>
+                  </div>
+                </a>
+              )
             ))}
           </div>
         </div>
@@ -135,16 +201,16 @@ const year = new Date().getFullYear();
       <section class="section" id="tools">
         <div class="wrap">
           <div class="head reveal">
-            <h2 class="head__title">常用工具</h2>
-            <p class="head__body">放在工具站里的快捷入口，点开就能用。</p>
+            <h2 class="head__title" data-i18n="toolsTitle">{t.toolsTitle}</h2>
+            <p class="head__body" data-i18n="toolsBody">{t.toolsBody}</p>
           </div>
 
           <ul class="rows">
-            {tools.map((t, i) => (
+            {tools.map((tool, i) => (
               <li class="reveal" style={`--index:${i}`}>
-                <a class="row" href={t.href}>
-                  <span class="row__name">{t.name}</span>
-                  <kbd class="row__meta">{t.meta}</kbd>
+                <a class="row" href={tool.href}>
+                  <span class="row__name" data-i18n={tool.nameKey}>{t[tool.nameKey]}</span>
+                  <kbd class="row__meta" data-i18n={tool.metaKey}>{t[tool.metaKey]}</kbd>
                   <span class="row__arrow" aria-hidden="true">
                     <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6">
                       <path d="M3 8h10M9 4l4 4-4 4" />
@@ -157,19 +223,22 @@ const year = new Date().getFullYear();
         </div>
       </section>
 
-      <section class="section" id="writing">
+      <section class="section" id="blog">
         <div class="wrap">
           <div class="head reveal">
-            <h2 class="head__title">最近写的</h2>
-            <p class="head__body">踩过的坑、做过的取舍，都记在博客里。</p>
+            <h2 class="head__title" data-i18n="blogTitle">{t.blogTitle}</h2>
+            <p class="head__body" data-i18n="blogBody">{t.blogBody}</p>
           </div>
 
           <div class="cards">
             {posts.map((post, i) => (
               <a class="card reveal" style={`--index:${i}`} href={post.href}>
+                <div class="card__media">
+                  <img src={post.image} alt="" width="800" height="500" />
+                </div>
                 <time class="card__date" datetime={post.date}>{post.date}</time>
-                <h3 class="card__title">{post.title}</h3>
-                <span class="card__more">阅读 →</span>
+                <h3 class="card__title" data-i18n={post.titleKey}>{t[post.titleKey]}</h3>
+                <span class="card__more" data-i18n="readArrow">{t.readArrow}</span>
               </a>
             ))}
           </div>
@@ -182,16 +251,16 @@ const year = new Date().getFullYear();
         <hr class="rule" />
         <div class="foot__grid">
           <div>
-            <h2 class="foot__heading">联系</h2>
-            <p class="foot__body">想聊工具、网站或者随便聊聊，直接发信即可。</p>
+            <h2 class="foot__heading" data-i18n="contactTitle">{t.contactTitle}</h2>
+            <p class="foot__body" data-i18n="contactBody">{t.contactBody}</p>
           </div>
           <div class="foot__links">
             <a class="foot__link" href="mailto:hi@imc899856.dpdns.org">hi@imc899856.dpdns.org</a>
             <a class="foot__link" href="https://github.com/" rel="me noopener">GitHub</a>
-            <a class="foot__link" href="/">看高端版</a>
+            <a class="foot__link" href="/" data-i18n="footerAltPremium">{t.footerAltPremium}</a>
           </div>
         </div>
-        <p class="foot__meta">© {year} imc899856 · Minimalist UI</p>
+        <p class="foot__meta">© {year} imc899856 · <span data-i18n="footerMeta">{t.footerMeta}</span></p>
       </div>
     </footer>
 
@@ -216,6 +285,11 @@ const year = new Date().getFullYear();
         targets.forEach((el) => io.observe(el));
       }
     </script>
+
+    <script define:vars={{ messages }}>
+      window.__I18N__ = messages;
+    </script>
+    <script src="/i18n.js" defer></script>
 
     <style>
       @font-face {
@@ -326,9 +400,16 @@ const year = new Date().getFullYear();
         pointer-events: none;
         z-index: 0;
         background:
-          radial-gradient(ellipse 60% 40% at 15% 10%, rgba(225, 243, 254, 0.55), transparent 60%),
-          radial-gradient(ellipse 50% 35% at 85% 70%, rgba(237, 243, 236, 0.5), transparent 55%);
-        opacity: 0.9;
+          radial-gradient(ellipse 55% 38% at 12% 8%, rgba(251, 243, 219, 0.45), transparent 58%),
+          radial-gradient(ellipse 48% 32% at 88% 72%, rgba(237, 243, 236, 0.4), transparent 55%);
+      }
+
+      .ambient::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0.035;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       }
 
       .mast {
@@ -396,6 +477,44 @@ const year = new Date().getFullYear();
         color: var(--strong);
       }
 
+      .lang {
+        display: inline-flex;
+        align-items: center;
+        gap: 0;
+        border: 1px solid #eaeaea;
+        border-radius: 6px;
+        background: var(--surface);
+        overflow: hidden;
+      }
+
+      .lang__btn {
+        appearance: none;
+        border: 0;
+        background: transparent;
+        margin: 0;
+        padding: 0.3rem 0.55rem;
+        font-family: var(--sans);
+        font-size: 0.75rem;
+        color: var(--muted);
+        cursor: pointer;
+        transition:
+          color 200ms var(--ease),
+          background 200ms var(--ease);
+      }
+
+      .lang__btn + .lang__btn {
+        border-left: 1px solid #eaeaea;
+      }
+
+      .lang__btn:hover {
+        color: var(--strong);
+      }
+
+      .lang__btn.is-active {
+        background: var(--sunken);
+        color: var(--strong);
+      }
+
       .mast__alt {
         padding: 0.3rem 0.65rem;
         border: 1px solid var(--border);
@@ -412,11 +531,66 @@ const year = new Date().getFullYear();
       .hero {
         position: relative;
         z-index: 1;
-        padding-block: clamp(4rem, 9vw, 6.5rem) clamp(3rem, 7vw, 5rem);
+        padding-block: clamp(3rem, 7vw, 5.5rem) clamp(3rem, 7vw, 5rem);
       }
 
-      .hero__inner {
-        max-width: 780px;
+      .hero__grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+        gap: clamp(1.75rem, 5vw, 4rem);
+        align-items: end;
+      }
+
+      .hero__frame {
+        order: 0;
+      }
+
+      .hero__copy {
+        order: 1;
+      }
+
+      .hero__copy {
+        max-width: 36rem;
+        padding-bottom: 0.5rem;
+      }
+
+      .hero__frame {
+        margin: 0;
+        position: relative;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        background: var(--sunken);
+        aspect-ratio: 4 / 5;
+      }
+
+      .hero__photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(1) contrast(1.05) brightness(0.92);
+        transform: scale(1.02);
+      }
+
+      .hero__frame::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent 45%, rgba(247, 246, 243, 0.18) 100%),
+          rgba(180, 140, 80, 0.08);
+        pointer-events: none;
+      }
+
+      .hero__cap {
+        position: absolute;
+        left: 1rem;
+        bottom: 1rem;
+        z-index: 1;
+        font-family: var(--mono);
+        font-size: 0.6875rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #f7f6f3;
       }
 
       .kicker {
@@ -526,18 +700,22 @@ const year = new Date().getFullYear();
       .cell {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        gap: 2.5rem;
-        padding: 1.75rem;
-        min-height: 190px;
+        overflow: hidden;
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: 12px;
+        min-height: 0;
         transition: box-shadow 200ms var(--ease);
       }
 
       .cell:hover {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      }
+
+      .cell--feature {
+        grid-column: span 4;
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
       }
 
       .cell--wide {
@@ -546,7 +724,62 @@ const year = new Date().getFullYear();
 
       .cell--half {
         grid-column: span 2;
+      }
+
+      .cell--soon {
+        border-style: dashed;
+        cursor: default;
         background: var(--sunken);
+      }
+
+      .cell--soon:hover {
+        box-shadow: none;
+      }
+
+      .cell__media {
+        position: relative;
+        overflow: hidden;
+        min-height: 160px;
+        background: var(--sunken);
+      }
+
+      .cell--feature .cell__media {
+        min-height: 280px;
+      }
+
+      .cell__media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: grayscale(1) contrast(1.04) brightness(0.96);
+        transition: transform 600ms var(--ease), filter 600ms var(--ease);
+      }
+
+      .cell__media::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(180, 140, 80, 0.08);
+        pointer-events: none;
+      }
+
+      .cell:hover .cell__media img {
+        transform: scale(1.03);
+        filter: grayscale(0.55) contrast(1.04) brightness(0.98);
+      }
+
+      .cell--soon:hover .cell__media img {
+        transform: none;
+        filter: grayscale(1) contrast(1.04) brightness(0.96);
+      }
+
+      .cell__body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 1.75rem;
+        padding: 1.35rem 1.5rem 1.5rem;
       }
 
       .cell__top {
@@ -582,32 +815,15 @@ const year = new Date().getFullYear();
       .tag {
         display: inline-flex;
         align-items: center;
-        border-radius: 9999px;
-        padding: 0.1875rem 0.5rem;
+        border-radius: 4px;
+        padding: 0.1875rem 0.45rem;
         font-family: var(--mono);
         font-size: 0.6875rem;
         letter-spacing: 0.05em;
         text-transform: uppercase;
-      }
-
-      .tag--blue {
-        background: var(--blue-bg);
-        color: var(--blue);
-      }
-
-      .tag--green {
-        background: var(--green-bg);
-        color: var(--green);
-      }
-
-      .tag--yellow {
-        background: var(--yellow-bg);
-        color: var(--yellow);
-      }
-
-      .tag--red {
-        background: var(--red-bg);
-        color: var(--red);
+        background: var(--sunken);
+        color: var(--muted);
+        border: 1px solid var(--border);
       }
 
       .rows {
@@ -664,15 +880,54 @@ const year = new Date().getFullYear();
         display: flex;
         flex-direction: column;
         gap: 0.75rem;
-        padding: 1.5rem;
+        padding: 0 0 1.25rem;
         border: 1px solid var(--border);
         border-radius: 12px;
-        background: var(--sunken);
+        background: var(--surface);
+        overflow: hidden;
         transition: box-shadow 200ms var(--ease);
       }
 
       .card:hover {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      }
+
+      .card__media {
+        position: relative;
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+        background: var(--sunken);
+      }
+
+      .card__media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(1) contrast(1.04) brightness(0.95);
+        transition: transform 600ms var(--ease), filter 600ms var(--ease);
+      }
+
+      .card__media::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(180, 140, 80, 0.08);
+        pointer-events: none;
+      }
+
+      .card:hover .card__media img {
+        transform: scale(1.03);
+        filter: grayscale(0.5) contrast(1.04) brightness(0.98);
+      }
+
+      .card__date,
+      .card__title,
+      .card__more {
+        padding-inline: 1.25rem;
+      }
+
+      .card__date {
+        margin-top: 1rem;
       }
 
       .card__date {
@@ -767,8 +1022,24 @@ const year = new Date().getFullYear();
       }
 
       @media (max-width: 1023px) {
+        .hero__grid {
+          grid-template-columns: 1fr;
+          align-items: start;
+        }
+        .hero__copy {
+          order: 0;
+        }
+        .hero__frame {
+          order: 1;
+          aspect-ratio: 16 / 10;
+          max-width: 36rem;
+        }
         .bento {
           grid-template-columns: repeat(2, 1fr);
+        }
+        .cell--feature {
+          grid-column: span 2;
+          grid-template-columns: 1fr;
         }
         .cards {
           grid-template-columns: 1fr;
@@ -780,12 +1051,16 @@ const year = new Date().getFullYear();
           grid-template-columns: 1fr;
         }
         .cell--wide,
-        .cell--half {
+        .cell--half,
+        .cell--feature {
           grid-column: span 1;
+          grid-template-columns: 1fr;
         }
         .cell {
           min-height: 0;
-          gap: 1.75rem;
+        }
+        .hero__frame {
+          aspect-ratio: 4 / 3;
         }
         .foot__grid {
           grid-template-columns: 1fr;
