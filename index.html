@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>imc899856 — 工具与社区</title>
+    <style>
+        :root {
+            --text: #111111; --text-secondary: #787774;
+            --border: #EAEAEA; --surface: #F9F9F8; --bg: #FFFFFF;
+            --accent-red: #FDEBEC; --accent-red-text: #9F2F2D;
+            --accent-blue: #E1F3FE; --accent-blue-text: #1F6C9F;
+            --accent-green: #EDF3EC; --accent-green-text: #346538;
+            --accent-yellow: #FBF3DB; --accent-yellow-text: #956400;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'SF Pro Display', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+        .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+        
+        header {
+            position: fixed; top: 0; left: 0; right: 0;
+            height: 68px; background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo {
+            font-family: 'Lyon Text', 'Instrument Serif', serif;
+            font-size: 28px; letter-spacing: -0.03em;
+        }
+        nav a { margin-left: 32px; color: var(--text-secondary); text-decoration: none; font-weight: 500; }
+        nav a:hover { color: var(--text); }
+
+        .hero {
+            height: 100vh; min-height: 620px;
+            background: linear-gradient(rgba(0,0,0,0.03), rgba(0,0,0,0.03)), url('https://picsum.photos/id/1015/2000/1200') center/cover;
+            display: flex; align-items: center;
+        }
+        .hero-content h1 {
+            font-family: 'Lyon Text', 'Instrument Serif', serif;
+            font-size: 92px; line-height: 1.05; letter-spacing: -0.04em; margin-bottom: 12px;
+        }
+        .hero-content p { font-size: 28px; max-width: 620px; }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 24px;
+            margin: 120px 0 80px;
+        }
+        .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 40px 32px;
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .card:hover { transform: translateY(-4px); }
+        .card h3 { font-family: 'Lyon Text', 'Instrument Serif', serif; font-size: 28px; margin-bottom: 12px; }
+        .feature-icon {
+            width: 48px; height: 48px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 24px;
+        }
+        .section { padding: 100px 0; background: #F7F6F3; }
+        .section-title {
+            font-family: 'Lyon Text', 'Instrument Serif', serif;
+            font-size: 42px; letter-spacing: -0.02em; margin-bottom: 80px;
+        }
+        .btn {
+            background: #111111; color: white; padding: 14px 32px;
+            border-radius: 6px; font-weight: 500; text-decoration: none;
+            display: inline-block; transition: transform 0.2s;
+        }
+        .btn:hover { transform: scale(0.97); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
+            <div class="logo">imc899856</div>
+            <nav>
+                <a href="#tools">工具</a>
+                <a href="#blog">博客</a>
+                <a href="#chat">聊天室</a>
+                <a href="#games">游戏</a>
+                <a href="#forum">论坛</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>工具箱<br>与社区</h1>
+                    <p>MC物品转换 · 合成配方 · 个人博客 · 实时聊天室 · 网页游戏 · 小型论坛</p>
+                    <a href="#tools" class="btn" style="margin-top:40px;">立即体验</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">核心功能</h2>
+                <div class="bento-grid">
+                    <div class="card">
+                        <div class="feature-icon" style="background:#EDF3EC;color:#346538;">📊</div>
+                        <h3>物品转换器</h3>
+                        <p>MC物品数量、合成配方、附魔计算器</p>
+                        <a href="#" style="color:#1F6C9F;text-decoration:none;font-weight:500;">立即使用 →</a>
+                    </div>
+                    <div class="card">
+                        <div class="feature-icon" style="background:#FBF3DB;color:#956400;">📖</div>
+                        <h3>个人博客</h3>
+                        <p>技术笔记、游戏攻略、日常分享</p>
+                        <a href="#" style="color:#1F6C9F;text-decoration:none;font-weight:500;">阅读全部 →</a>
+                    </div>
+                    <div class="card">
+                        <div class="feature-icon" style="background:#FDEBEC;color:#9F2F2D;">💬</div>
+                        <h3>实时聊天室</h3>
+                        <p>与朋友、玩家、社区成员即时交流</p>
+                        <a href="#" style="color:#1F6C9F;text-decoration:none;font-weight:500;">加入聊天 →</a>
+                    </div>
+                    <div class="card">
+                        <div class="feature-icon" style="background:#EDF3EC;color:#346538;">🎮</div>
+                        <h3>网页游戏区</h3>
+                        <p>小游戏、HTML5游戏合集</p>
+                        <a href="#" style="color:#1F6C9F;text-decoration:none;font-weight:500;">玩游戏 →</a>
+                    </div>
+                    <div class="card">
+                        <div class="feature-icon" style="background:#E1F3FE;color:#1F6C9F;">📌</div>
+                        <h3>小型论坛</h3>
+                        <p>知识讨论、工具讨论、社区交流</p>
+                        <a href="#" style="color:#1F6C9F;text-decoration:none;font-weight:500;">进入论坛 →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background:white;">
+            <div class="container">
+                <h2 class="section-title">为什么选择这个站点</h2>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;">
+                    <div style="border:1px solid #EAEAEA;padding:40px;border-radius:12px;">
+                        <p style="font-size:18px;line-height:1.5;">极简主义设计 + 高对比度排版，让你专注于工具和内容。</p>
+                    </div>
+                    <div style="border:1px solid #EAEAEA;padding:40px;border-radius:12px;">
+                        <p style="font-size:18px;line-height:1.5;">低维护，自托管 NodeBB 论坛，Docker 一键部署。</p>
+                    </div>
+                    <div style="border:1px solid #EAEAEA;padding:40px;border-radius:12px;">
+                        <p style="font-size:18px;line-height:1.5;">预期只有几十人在线，服务器压力极低。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="border-top:1px solid #EAEAEA;padding:60px 0 40px;font-size:13px;color:#787774;">
+        <div class="container">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;">
+                <div>© 2026 imc899856 • All rights reserved</div>
+                <div>本地测试版 • 未来将部署到服务器</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.transition = 'all 0.6s cubic-bezier(0.16,1,0.3,1)';
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.card, .section').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(12px)';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
